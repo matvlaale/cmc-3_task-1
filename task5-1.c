@@ -8,7 +8,7 @@
 
 int isOutOfMemory(char *link) 
 {
-	if(link == NULL) 
+	if (link == NULL) 
 		return 1;
 	else 
 		return 0;
@@ -28,7 +28,7 @@ char *inputString(int file, int *lastEnd)
 	int isEndOfString = 0, isSpace = 0; //Bool
 	int length = 0, capacity = 16, checkInt = sizeof(char);
 	char *nextString = malloc(capacity * sizeof(char));
-	if(isOutOfMemory(nextString)) //Если память закончилась
+	if (isOutOfMemory(nextString)) //Если память закончилась
 	{
 		printf("No dynamic memory\n");
 		return NULL;
@@ -46,22 +46,21 @@ char *inputString(int file, int *lastEnd)
 	while (isSpace && !isEndOfString);
 	
 	int quoteCheck = nextChar == '"';
-	isEndOfString = (nextChar == EOF || checkInt == 0);
-	while(!isEndOfString)
+	while (!isEndOfString)
 	{
 		if (nextChar != '"')
 			nextString[length++] = nextChar;
-		if(length >= capacity) //Проверка на то, нужно ли выделить память
+		if (length >= capacity) //Проверка на то, нужно ли выделить память
 		{
 			capacity *= 2;
 			nextString = realloc(nextString, capacity * sizeof(char));
-			if(isOutOfMemory(nextString)) 
+			if (isOutOfMemory(nextString)) 
 			{
 				printf("No dynamic memory\n");
 				return NULL;
 			}
 		}
-		if(file == -1) 
+		if (file == -1) 
 			nextChar = getchar();
 		else
 			checkInt = read(file, &nextChar, sizeof(char));
@@ -105,11 +104,11 @@ int main(int argc, char **argv)
 		if (isEndOfFile)
 			break;
 		
-		if(size >= textCapacity)
+		if (size >= textCapacity)
 		{
 			textCapacity *= 2;
 			textArray = realloc(textArray, textCapacity * sizeof(char*));
-			if(isOutOfMemory(textArray)) 
+			if (isOutOfMemory(textArray)) 
 			{
 				printf("No dynamic memory\n");
 				break;
