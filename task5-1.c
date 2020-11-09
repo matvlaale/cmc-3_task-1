@@ -36,7 +36,7 @@ char *inputString(int file, int *lastEnd)
 	char nextChar, EOFC = '.';
 	do
 	{
-		if(file == -1) 
+		if (file == -1) 
 			nextChar = getchar();
 		else
 			checkInt = read(file, &nextChar, sizeof(char));
