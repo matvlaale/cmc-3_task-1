@@ -81,7 +81,7 @@ char *inputString(int file, int *lastEnd)
 
 int main(int argc, char **argv)
 {
-	int fileInput = -1, textCapacity = 8, size = 0;
+	int fileInput = -1, textCapacity = 8, textSize = 0;
 	int isEndOfFile = 0, isEOF = 0;
 	char EOFC = '.';
 	if (argc >= 1)
@@ -90,8 +90,8 @@ int main(int argc, char **argv)
 	char **textArray = malloc(textCapacity * sizeof(char*));
 	do
 	{
-		textArray[size++] = inputString(fileInput, lastEnd);
-		if (isOutOfMemory(textArray[size - 1]))
+		textArray[textSize++] = inputString(fileInput, lastEnd);
+		if (isOutOfMemory(textArray[textSize - 1]))
 		{
 			printf("No dynamic memory\n");
 			break;
@@ -100,11 +100,11 @@ int main(int argc, char **argv)
 		if (isEndOfFile)
 			break;
 		
-		isEndOfFile = textArray[size - 1][*lastEnd] == EOF;
+		isEndOfFile = textArray[textSize - 1][*lastEnd] == EOF;
 		if (isEndOfFile)
 			break;
 		
-		if (size >= textCapacity)
+		if (textSize >= textCapacity)
 		{
 			textCapacity *= 2;
 			textArray = realloc(textArray, textCapacity * sizeof(char*));
@@ -114,13 +114,13 @@ int main(int argc, char **argv)
 				break;
 			}
 		}
-		isEOF = textArray[size - 1][*lastEnd] == EOF;
+		isEOF = textArray[textSize - 1][*lastEnd] == EOF;
 	}
 	while (!isEOF);
-	textArray[size - 1][*lastEnd] = '\0';
+	textArray[textSize - 1][*lastEnd] = '\0';
 	int i = 0;
-	while (i < size)
+	while (i < textSize)
 		printf("%s\n", textArray[i++]);
 	free(lastEnd);
-	freeArray(textArray, size);
+	freeArray(textArray, textSize);
 }
